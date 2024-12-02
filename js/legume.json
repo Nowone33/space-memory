@@ -1,0 +1,28 @@
+[
+    {
+        "image": "../images/apple.svg",
+        "name": "apple"
+    },
+
+    {
+        "image":"../images/banane.svg",
+        "name":"banane"
+    },
+    {
+        "image": "../images/brocoli.svg",
+        "name": "brocoli"
+    },
+    {
+        "image": "../images/cherry.svg",
+        "name": "chrry"
+    },
+    {
+        "image": "../images/fraise.svg",
+        "name": "fraise"
+    },
+    {
+        "image": "../images/piment.svg",
+        "name": "piment"
+    }
+    
+]
