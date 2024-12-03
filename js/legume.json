@@ -1,27 +1,27 @@
 [
     {
-        "image": "../images/apple.svg",
+        "image": "../images/apple.png",
         "name": "apple"
     },
 
     {
-        "image":"../images/banane.svg",
+        "image":"../images/banana.png",
         "name":"banane"
     },
     {
-        "image": "../images/brocoli.svg",
+        "image": "../images/brocoli.png",
         "name": "brocoli"
     },
     {
-        "image": "../images/cherry.svg",
+        "image": "../images/cherry.png",
         "name": "chrry"
     },
     {
-        "image": "../images/fraise.svg",
+        "image": "../images/fraise.png",
         "name": "fraise"
     },
     {
-        "image": "../images/piment.svg",
+        "image": "../images/piment.png",
         "name": "piment"
     }
     
