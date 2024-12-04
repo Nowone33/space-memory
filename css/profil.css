@@ -1,0 +1,20 @@
+.presentation{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+img{
+    height: 100px;
+    width: 100px;
+}
+
+
+.description{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    width:60vw;
+    
+
+}

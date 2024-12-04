@@ -23,15 +23,15 @@
     <main>
         <div class="contener">
             <h2>Connectez-vous</h2>
-            <form action="submit">
+            <form id="loginForm" action="POST">
                 <label for="emailConnect">Entrez votre email</label>
                 <input type="email" id="emailConnect" name="emailConnect">
                 <br>
                 <label for="password">Mot de passe</label>
                 <input type="password" name="password" id="password">
                 <br>
-                <button onclick="">Se connecter</button>
-                <button onclick="">Annuler</button>
+                <button type="submit">Se connecter</button>
+                <button type="button" id="cancelButton">Annuler</button>
             </form>
             </div>
 
@@ -40,6 +40,6 @@
     <footer>
 
     </footer>
-    <script type="module" src="js/app.js"></script>
+    <script type="module" src="js/login.js"></script>
 </body>
 </html>
