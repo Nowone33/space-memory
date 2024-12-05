@@ -1,22 +1,22 @@
 /* Style global */
-html,body{
+html, body {
     height: 100%;
-    margin:0;
-    padding: 0%;
-}
-body {
-    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
-    color: #333;
-    min-height: 100vh;
-    min-width: 100vw;
+    display: flex;
+    flex-direction: column;
 }
 
-/* En-tête */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
 header {
-    background-color: #f4f4f4; 
+    background-color: #f4f4f4;
     color: #333;
     padding: 15px 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -45,32 +45,35 @@ header .title h1 {
 }
 
 .navBar a:hover {
-    background-color: #07dfad; /* thème vert */
+    background-color: #07dfad;
 }
 
-/* Conteneur principal */
 main .contener {
-    max-width: 50vw;
+    max-width: 80vw;
     margin: 50px auto;
     background-color: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.imgRegle{
+.imgRegle {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
 }
-.imgRegle >img{
+
+.imgRegle > img {
     height: 250px;
     width: 260px;
 }
 
 main .contener h2 {
     text-align: center;
-    color: #333; 
+    color: #333;
     margin-bottom: 20px;
 }
 
@@ -83,6 +86,7 @@ form label {
     margin-bottom: 5px;
     font-weight: bold;
 }
+
 form input[type="text"],
 form input[type="email"],
 form input[type="password"] {
@@ -92,11 +96,18 @@ form input[type="password"] {
     border-radius: 5px;
 }
 
-form button {
+.bouton {
+    display: flex;
+    flex-direction: row;
+    gap:30px;
+    justify-content: space-around;
+}
+
+button {
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
-    background-color: #07dfad; 
+    background-color: #07dfad;
     color: white;
     font-weight: bold;
     cursor: pointer;
@@ -105,34 +116,32 @@ form button {
 }
 
 form button:hover {
-    background-color: #07dfad; /* Vert plus foncé */
+    background-color: #07dfad;
 }
 
-.error-message{
-    color:red;
+.error-message {
+    color: red;
     font-size: 0.6rem;
     margin-top: 0px;
 }
 
-/* Pied de page */
 footer {
     text-align: center;
     padding: 10px;
     background-color: #fafafa;
     color: white;
-    position: bottom;
     width: 100%;
-    bottom: 0;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.8);
+    margin-top: auto;
 }
 
-/* Media Queries pour adaptabilité */
 @media (max-width: 768px) {
     header {
         flex-direction: column;
         align-items: center;
     }
-    main{
+
+    main {
         align-items: center;
     }
 

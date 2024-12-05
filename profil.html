@@ -29,30 +29,24 @@
                     <img src="images/devine.png" alt=" avatar du profil">
                 </div>        
                 <div class="description">
-                    <p>Nom d'utilisateur</p>
-                    <p id="username"></p>
-                    <p>Email</p>
-                    <p id="email"></p>
-                    <p>Vos parties</p>
-
-                    
-            
-                    
+                    <p class="info-label">Nom d'utilisateur</p>
+                    <p class="info-value" id="username"></p>
+                    <p class="info-label">Email</p>
+                    <p class="info-value" id="email"></p>
+                    <p class="info-label">Vos parties</p>
+                    <div id="topThree">
+                         <ul id="topThree-list">
+                         </ul>
+                     </div>
+                    <br>
+                    <button id="logOut"> Se déconnecter</button>
                 </div>
-
-
-                
-
-                
-
             </div>
+            
 
         </div>
     </main>
     <footer>
-        <p>Derniers scores</p>
-     
-
     </footer>
     <script type="module" src="js/profil.js"></script>
 </body>

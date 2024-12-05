@@ -1,149 +1,141 @@
-// Selectionne la zone ou s'affichera le jeu sur la page html
-const game = document.getElementById('game')
-// créer le plateau de carte
-const grid = document.createElement('section')
-grid.setAttribute('class', 'grid')
-// Insert le plateau de carte dans la zone de jeu definit
-game.appendChild(grid)
+import { updateScore } from './leaderboard.js';
 
+// Sélectionne la zone où s'affichera le jeu sur la page HTML
+const game = document.getElementById('game');
+// Créer le plateau de carte
+const grid = document.createElement('section');
+grid.setAttribute('class', 'grid');
+// Insert le plateau de carte dans la zone de jeu définie
+game.appendChild(grid);
 
-
-let cards=[];
+let cards = [];
 let score = 0;
 let firstCard, secondCard;
 let lockBoard = false;
+let matchedPairs = 0; // Variable pour suivre le nombre de paires trouvées
 
-// recuperer les données pour alimenter chaque carte
+// Récupérer les données pour alimenter chaque carte
 fetch("./js/legume.json")
     .then((response) => response.json())
-    .then((data) =>{
-        cards = [...data,...data];
-        //On mélange avant de les afficher
+    .then((data) => {
+        cards = [...data, ...data];
+        // On mélange avant de les afficher
         shuffleCards();
-        // utiliser une fonction qui génère les cartes dans le fetch pour éviter le probleme async
+        // Utiliser une fonction qui génère les cartes dans le fetch pour éviter le problème async
         generateCards();
-       
-        
     })
     .catch((error) => {
         console.error("Erreur lors du chargement des données :", error);
     });
 
-
-
-function generateCards(){
-    //pour chaque valeur du fichier json
+function generateCards() {
+    // Pour chaque valeur du fichier JSON
     cards.forEach((item) => {
-    
-        // creer une carte dans une enveloppe div
+        // Créer une carte dans une enveloppe div
         const card = document.createElement('div');
-        
-        // on lui ajoute la class card pour le css dédié
+        // On lui ajoute la class card pour le CSS dédié
         card.classList.add('card');
-        card.setAttribute("data-name", item.name)
-        // on récupère son nom donnée dans le json
+        card.setAttribute("data-name", item.name);
+        // On récupère son nom donné dans le JSON
         card.dataset.image = item.image;
         card.dataset.name = item.name;
-        card.innerHTML=`
+        card.innerHTML = `
         <div class="front">
-            <img class="front-image" src="${item.image}" alt=" carte ${item.name}"/>
+            <img class="front-image" src="${item.image}" alt="carte ${item.name}"/>
         </div>
         <div class="back"></div>
-         `;
-
-        // on l'insert dans la grille de jeu
-        grid.appendChild(card)
+        `;
+        // On l'insert dans la grille de jeu
+        grid.appendChild(card);
         card.addEventListener("click", flipCard);
-    
-
-});
+    });
 }
 
-function shuffleCards(){
+function shuffleCards() {
     let currentIndex = cards.length;
     let randomIndex;
     let temporaryValue;
 
-    while(currentIndex !==0){
+    while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex --;
+        currentIndex--;
 
         temporaryValue = cards[currentIndex];
         cards[currentIndex] = cards[randomIndex];
-        cards[randomIndex] = temporaryValue
-
+        cards[randomIndex] = temporaryValue;
     }
 }
 
-
-function flipCard(){
-    if(lockBoard){
+function flipCard() {
+    if (lockBoard) {
         return;
     }
-    if(this === firstCard){
+    if (this === firstCard) {
         return;
     }
     this.classList.add("flipped");
 
-    if(!firstCard){
+    if (!firstCard) {
         firstCard = this;
         return;
     }
     secondCard = this;
-    score ++;
+    score++;
     document.querySelector(".score").textContent = score;
     lockBoard = true;
 
     checkForMatch();
 }
 
-function checkForMatch(){
+function checkForMatch() {
     let isMatch = firstCard.dataset.name === secondCard.dataset.name;
 
-    if(isMatch){
+    if (isMatch) {
         disableCard();
-    }else{
+    } else {
         unflipCard();
-    } 
+    }
 
-    function disableCard(){
-
-        firstCard.removeEventListener("click",flipCard);
+    function disableCard() {
+        firstCard.removeEventListener("click", flipCard);
         secondCard.removeEventListener("click", flipCard);
-
+        matchedPairs++; // Incrémente le nombre de paires trouvées
+        if (matchedPairs === cards.length / 2) {
+            // Toutes les paires ont été trouvées, le jeu est terminé
+            setTimeout(() => {
+                updateScore(score); // Appel de la fonction updateScore du fichier leaderboard.js
+            }, 500);
+        }
         resetBoard();
     }
- 
-    function unflipCard(){
+
+    function unflipCard() {
         setTimeout(() => {
             firstCard.classList.remove("flipped");
             secondCard.classList.remove("flipped");
             resetBoard();
         }, 1000);
-    }    
-
-    
+    }
 }
 
+function resetBoard() {
+    firstCard = null;
+    secondCard = null;
+    lockBoard = false;
+}
 
-function resetBoard(){
-        firstCard = null;
-        secondCard = null;
-        lockBoard = false;
-    }
-
-
-function restart(){
+function restart() {
     resetBoard();
     shuffleCards();
     score = 0;
+    matchedPairs = 0; // Réinitialise le nombre de paires trouvées
     document.querySelector(".score").textContent = score;
-    grid.innerHTML ="";
+    grid.innerHTML = "";
     generateCards();
 }
 
 document.addEventListener("keydown", (event) => {
-    if(event.code === 'Space'){
+    if (event.code === 'Space') {
         restart();
     }
-})
+});

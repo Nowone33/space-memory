@@ -3,7 +3,11 @@
 *::after{
     box-sizing: border-box;
 }
-
+main{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
 .game{
     display: flex;
   
@@ -23,14 +27,14 @@
 
 .card{
     height: 100px;
-    width: 100px;
+    width: 80px;
     transform-style : preserve-3d;
     transition: all 0.4s linear;
     position: relative;
 }
 
 .front-image{
-    height: 80px;
+    height: 100px;
     width: 80px;
 }
 .card.flipped{
@@ -43,7 +47,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    height: 80px;
+    height: 100px;
     width: 80px;
 }
 
@@ -64,3 +68,33 @@
     backface-visibility: hidden;
 }
 
+.leaderboard {
+    margin-top: 15px;
+    width: 200px;
+    padding: 10px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    margin-bottom: 20px;
+    margin-right: 15px;
+}
+
+
+
+.leaderboard h3 {
+    margin-top: 0;
+}
+
+.leaderboard ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.leaderboard li {
+    padding: 5px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.leaderboard li:last-child {
+    border-bottom: none;
+}

@@ -1,20 +1,72 @@
-.presentation{
+.presentation {
     display: flex;
     flex-direction: column;
+    align-items: center;
     text-align: center;
+    gap: 20px; /* Espacement entre les éléments */
 }
 
-img{
-    height: 100px;
-    width: 100px;
+.presentation h2 {
+    font-size: 2em;
+    margin-bottom: 10px;
+    color: #333;
 }
 
+.presentation img {
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #07dfad; /* Bordure pour styliser l'avatar */
+}
 
-.description{
+.description {
     display: flex;
     flex-direction: column;
-    justify-content: left;
-    width:60vw;
-    
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 400px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 
+.description p {
+    margin: 5px 0;
+}
+
+.description .info-label {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #888; /* Couleur plus douce pour le libellé */
+    margin-bottom: 3px;
+}
+
+.description .info-value {
+    font-size: 1.2em;
+    color: #333; /* Couleur plus marquée pour les valeurs */
+    margin-bottom: 15px;
+}
+
+#topThree{
+    margin-top: 15px;
+    width: 200px;
+    padding: 10px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    margin-bottom: 20px;
+    margin-right: 15px;
+}
+
+#topThree ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+#topThree li {
+    padding: 5px;
+    border-bottom: 1px solid #ccc;
 }
