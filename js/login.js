@@ -6,29 +6,29 @@ document.getElementById("loginForm").addEventListener("submit", function(event){
     const passwordInput = document.getElementById("password").value.trim();
 
     const users = JSON.parse(localStorage.getItem("users"));// recupere nos users du local storage
-    
-    const userActuel = users.some(user => {
-        // L'utilisateur existe
-        if(user.email === emailInput){
+   
+    if(users){
+        const userActuel = users.find(user => user.email === emailInput);
 
-            if(user.password === passwordInput){
-                alert("Connexion réussie ! ")
+        if(userActuel){
 
-                //Conserver l'user actuel dans le session storage pour l'utiliser 
-                sessionStorage.setItem("loggedInUser", JSON.stringify(user));
+            if(userActuel.password === passwordInput){
+                alert("Connexion réussie");
 
-                // rediriger vers la page profil
-                window.location.href = 'profil.html';
+                sessionStorage.setItem("loggedInUser", JSON.stringify(userActuel));
+                window.location.href = "profil.html";
 
-            } else {
-                alert("mot de passe incorrect.")
+            }else{
+                alert("Mot de passe incorrect.")
             }
-
-        } else{
-            alert("Aucun compte ne correspond à cet email")
-
-        }}) 
+        } else {
+            alert("Auncun compte ne correspond à cette adresse mail")
+        }
+    } else {
+        alert("Aucun compte n'a été créé pour le moment inscrivez vous.")
+    }
     
+    document.getElementById("loginForm").reset()
 });
 
 // bouton ANNULER

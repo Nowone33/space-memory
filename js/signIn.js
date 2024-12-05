@@ -3,6 +3,13 @@ document.getElementById("signinForm").addEventListener("submit", function (event
     handleFormSubmit();
 });
 
+
+document.getElementById('password').addEventListener("input", function() {
+    const passwordInput = document.getElementById("password");
+    verifPassword(passwordInput);
+})
+
+
 let message =""; // va servir pour y incorporer non message d'erreur
 
 // Gère la soumission du formulaire -> bouton creation
@@ -25,8 +32,11 @@ function handleFormSubmit() {
             email: emailInput.value.trim(),
             password: passwordInput.value.trim(),
         };
-        saveUserLocalStorage(user);
-        alert("Compte enregistré avec succès.");
+        if(saveUserLocalStorage(user)){
+            alert("Compte enregistré avec succès.");
+            document.getElementById("signinForm").reset();
+        }
+        
     } else {
         alert("Tous les champs ne sont pas remplis correctement. Veuillez vérifier le formulaire.");
     }
@@ -40,15 +50,13 @@ function saveUserLocalStorage(newUser) {
     const userExists = users.some(user => user.email === newUser.email || user.username === newUser.username); 
     if(userExists){
         alert("Un utilisateur avec cet email ou ce nom existe deja." )
-        return;
+        return false;
     } else {
         users.push(newUser);
         localStorage.setItem("users", JSON.stringify(users));
+
+        return true;
     }
-    //
-    
-    console.log("Utilisateur enregistré dans le localStorage :", localStorage.getItem("users")); // Confirme le contenu
-    console.log("Utilisateur enregistré dans le local storage :", newUser);
 }
 
 // Gère les informations saisies dans les input à chaque sortie de saisie avec `blur`
@@ -64,9 +72,6 @@ function verifFormSignIn() {
                     break;
                 case "email":
                     verifEmail(champ);
-                    break;
-                case "password":
-                    verifPassword(champ);
                     break;
                 case "confirmPassword":
                     verifConfirmPassword(champ);
@@ -117,22 +122,55 @@ function verifEmail(input) {
     }
 }
 
+
 function verifPassword(input) {
     const passwordValue = input.value.trim();
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^_&*])(?=.{8,})/;
+    let strength = 0;
+    let minusculeRegex = /[a-z]/
+    let majuculeRegex = /[A-Z]/
+    let chiffreRegex = /[0-9]/
+    let charSpeRegex = /[!@#$%^&*£(){}]/
 
     if (passwordValue === "") {
         message = "Ce champ ne peut pas être vide";
         writeErrorMessage(input, message);
+        updatePasswordStrength(0);
         return false;
-    } else if (!passwordRegex.test(passwordValue)) {
-        message = "Le mot de passe doit contenir au moins 8 caractères, un chiffre et un caractère spécial";
+    } else {
+        clearErrorMessage(input);
+    }
+    if(password.length >= 8){
+        strength += 25;
+    }
+    if(minusculeRegex.test(passwordValue)){
+        strength += 25;
+    }
+    if(majuculeRegex.test(passwordValue)){
+        strength += 25;
+    }
+    if(chiffreRegex.test(passwordValue)){
+        strength += 25;
+    }
+    if(charSpeRegex.test(passwordValue)){
+        strength += 25;
+    }
+    updatePasswordStrength(strength);
+
+    if(strength < 100){
+        message = "Le mot de passe doit contenir au mois 8 charactères dont 1 majuscule, 1 minuscule, 1 chiffre et 1 charactère spécial."
         writeErrorMessage(input, message);
         return false;
     } else {
         clearErrorMessage(input);
+       
         return true;
     }
+}
+
+
+function updatePasswordStrength(strength){
+    const passwordStrength = document.getElementById("passwordStrength");
+    passwordStrength.value = strength;
 }
 
 function verifConfirmPassword(input) {
@@ -173,6 +211,9 @@ function clearErrorMessage(input) {
         existingError.remove();
     }
 }
+
+
+
 
 document.getElementById("cancelButton").addEventListener("click", function(event){
     location.reload();

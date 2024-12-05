@@ -54,6 +54,10 @@ function addToLeaderBoard(username, score) {
 
 function displayLeaderBoard() {
     const leaderboardList = document.getElementById("leaderboard-list");
+
+    if(!leaderboardList){
+        return;
+    }
     leaderboardList.innerHTML = "";
 
     // Vérifiez si le leaderboard contient des données
@@ -73,7 +77,7 @@ function displayLeaderBoard() {
 }
 
 
-function displayTopThree(user){
+export default function displayTopThree(user){
     const topThreelist = document.getElementById("topThree-list");
     topThreelist.innerHTML="";
 
@@ -91,7 +95,7 @@ function displayTopThree(user){
             } else {
                 const listItem = document.createElement("li");
                 listItem.textContent = "Aucun score enregistré pour ce joueur.";
-                leaderboardList.appendChild(listItem);
+                topThreelist.appendChild(listItem);
             }
         
     
@@ -99,4 +103,4 @@ function displayTopThree(user){
 
 // Exporter la fonction updateScore
 export { updateScore };
-export {displayTopThree};
+

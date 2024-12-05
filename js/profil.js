@@ -1,4 +1,4 @@
-import { displayTopThree } from "./leaderboard.js";
+import displayTopThree from "./leaderboard.js";
 
 window.addEventListener("DOMContentLoaded", function(){
     // recuperation du localstorage
